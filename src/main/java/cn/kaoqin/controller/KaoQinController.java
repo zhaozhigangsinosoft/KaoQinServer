@@ -1,6 +1,7 @@
 package cn.kaoqin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.kaoqin.service.KaoQinService;
-import cn.kaoqin.vo.KaoQinRecordVo;
+import cn.kaoqin.vo.KaoQinExcelMainVo;
+import cn.kaoqin.vo.KaoQinGetOutVo;
+import cn.kaoqin.vo.RecordEverydayVo;
 import cn.util.RegTest;
 
 /**
@@ -47,12 +50,13 @@ public class KaoQinController {
                     + " or \"download\" in the URL!";
         }
         
-        ArrayList<KaoQinRecordVo> recordVos = new ArrayList<>();
+        KaoQinExcelMainVo kaoQinExcelMainVo = kaoQinService.importExcel(filePath);
+        HashMap<String,KaoQinGetOutVo> KaoQinGetOutMap = kaoQinService.convertObject(kaoQinExcelMainVo);
         try {
             //将考勤对象转换为excel下载
-            if(!recordVos.isEmpty()) {
+            if(!KaoQinGetOutMap.isEmpty()) {
                 kaoQinService.exportExcel(
-                        recordVos, response, saveType ,filePath);
+                        KaoQinGetOutMap, response, saveType ,filePath);
             }else {
                 return "No records!";
             }
