@@ -1,6 +1,5 @@
 package cn.kaoqin.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.kaoqin.service.KaoQinService;
 import cn.kaoqin.vo.KaoQinExcelMainVo;
 import cn.kaoqin.vo.KaoQinGetOutVo;
-import cn.kaoqin.vo.RecordEverydayVo;
 import cn.util.RegTest;
 
 /**
@@ -40,20 +38,22 @@ public class KaoQinController {
     private HttpServletResponse response;
     
     /**
-     * 转换考勤文件请求服务
+     * 转换考勤文件请求入口
      * @return
      */
     @RequestMapping(value = "/convert/{saveType}")
     public String convertExcel(@PathVariable("saveType") String saveType) {
+        //此处可以选择save和download两种方式，save为直接将文件生成到本地路径下，download为通过浏览器下载
         if(!RegTest.match(saveType, "^(save|download)$")) {
             return "Error export method!Please enter \"save\""
                     + " or \"download\" in the URL!";
         }
-        
+        //解析考勤原始文件为实体对象
         KaoQinExcelMainVo kaoQinExcelMainVo = kaoQinService.importExcel(filePath);
+        //将考勤文件实体对象转换为将要转换成导出表格的HashMap
         HashMap<String,KaoQinGetOutVo> KaoQinGetOutMap = kaoQinService.convertObject(kaoQinExcelMainVo);
         try {
-            //将考勤对象转换为excel下载
+            //将转换好的HashMap转换为excel下载
             if(!KaoQinGetOutMap.isEmpty()) {
                 kaoQinService.exportExcel(
                         KaoQinGetOutMap, response, saveType ,filePath);

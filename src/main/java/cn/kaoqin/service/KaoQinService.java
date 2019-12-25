@@ -1,13 +1,11 @@
 package cn.kaoqin.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
 import cn.kaoqin.vo.KaoQinExcelMainVo;
 import cn.kaoqin.vo.KaoQinGetOutVo;
-import cn.kaoqin.vo.RecordEverydayVo;
 
 /**
  * 考勤文件处理服务接口
@@ -33,7 +31,7 @@ public interface KaoQinService {
     public KaoQinExcelMainVo importExcel(String filePath); 
     
     /**
-     * 计算考勤记录，将考勤表对象转换成输出对象
+     * 计算考勤记录，将考勤文件实体对象转换为将要转换成导出表格的HashMap
      * @param kaoQinExcelMainVo
      * @return
      */
