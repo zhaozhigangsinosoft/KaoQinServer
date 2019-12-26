@@ -599,20 +599,20 @@ public class KaoQinServiceImpl implements KaoQinService {
                     if(recordEverydayVo.getAmClockInResult().contains("请假")) {
                         //计算请假天数
                         if(recordEverydayVo.getAssociatedApproval().contains("年假")) {
-                            //年假的审批单里有年假字样,以此判断此假期为年假,计算到年假天数里
+                            //年假的审批单里有年假字样,以此判断此假期为年假,计算到年假天数里,考勤表中的一次年假计0.5天年假
                             kaoQinGetOutVo.setAnnualLeaveDaysOfThisMonth(kaoQinGetOutVo.getAnnualLeaveDaysOfThisMonth().
-                                    add(BigDecimal.valueOf(1)));
-                        }else {//否则就是一般的请假
+                                    add(BigDecimal.valueOf(0.5)));
+                        }else {//否则就是一般的请假，这里记录的是请假次数，后面转换为天数的时候会再除以2作转换
                             kaoQinGetOutVo.setLeaveDaysOfThisMonth(kaoQinGetOutVo.getLeaveDaysOfThisMonth().
                                     add(BigDecimal.valueOf(1)));
                         }
                     }
                     if(recordEverydayVo.getPmClockOutResult().contains("请假")) {
-                        //年假的审批单里有年假字样,以此判断此假期为年假,计算到年假天数里
+                        //年假的审批单里有年假字样,以此判断此假期为年假,计算到年假天数里,考勤表中的一次年假计0.5天年假
                         if(recordEverydayVo.getAssociatedApproval().contains("年假")) {
                             kaoQinGetOutVo.setAnnualLeaveDaysOfThisMonth(kaoQinGetOutVo.getAnnualLeaveDaysOfThisMonth().
-                                    add(BigDecimal.valueOf(1)));
-                        }else {//否则就是一般的请假
+                                    add(BigDecimal.valueOf(0.5)));
+                        }else {//否则就是一般的请假，这里记录的是请假次数，后面转换为天数的时候会再除以2作转换
                             kaoQinGetOutVo.setLeaveDaysOfThisMonth(kaoQinGetOutVo.getLeaveDaysOfThisMonth().
                                     add(BigDecimal.valueOf(1)));
                         }
