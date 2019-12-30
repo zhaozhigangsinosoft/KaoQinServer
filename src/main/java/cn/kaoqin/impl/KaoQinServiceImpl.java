@@ -199,16 +199,16 @@ public class KaoQinServiceImpl implements KaoQinService {
             XSSFRow xssfRow = xssfSheet.getRow(i);
             RecordEverydayVo recordEverydayVo = new RecordEverydayVo();
             recordEverydayVo.setName(xssfRow.getCell(0).toString());//姓名
-            recordEverydayVo.setDept(xssfRow.getCell(1).toString());//部门
-            recordEverydayVo.setId(xssfRow.getCell(2).toString());//id
-            recordEverydayVo.setPosition(xssfRow.getCell(3).toString());//职位
-            recordEverydayVo.setDate(xssfRow.getCell(5).toString());//日期
-            recordEverydayVo.setJobTime(xssfRow.getCell(6).toString());//班次
-            recordEverydayVo.setAmClockIn(xssfRow.getCell(7).toString());//上班打卡时间
-            recordEverydayVo.setAmClockInResult(xssfRow.getCell(8).toString());//上班打卡结果
-            recordEverydayVo.setPmClockOut(xssfRow.getCell(9).toString());//下班打卡时间
-            recordEverydayVo.setPmClockOutResult(xssfRow.getCell(10).toString());//下班打卡结果
-            recordEverydayVo.setAssociatedApproval(xssfRow.getCell(15).toString());//关联的审批单
+            recordEverydayVo.setDept(xssfRow.getCell(2).toString());//部门
+            recordEverydayVo.setId(xssfRow.getCell(3).toString());//id
+            recordEverydayVo.setPosition(xssfRow.getCell(4).toString());//职位
+            recordEverydayVo.setDate(xssfRow.getCell(6).toString());//日期
+            recordEverydayVo.setJobTime(xssfRow.getCell(7).toString());//班次
+            recordEverydayVo.setAmClockIn(xssfRow.getCell(8).toString());//上班打卡时间
+            recordEverydayVo.setAmClockInResult(xssfRow.getCell(9).toString());//上班打卡结果
+            recordEverydayVo.setPmClockOut(xssfRow.getCell(10).toString());//下班打卡时间
+            recordEverydayVo.setPmClockOutResult(xssfRow.getCell(11).toString());//下班打卡结果
+            recordEverydayVo.setAssociatedApproval(xssfRow.getCell(16).toString());//关联的审批单
             recordEverydayVos.add(recordEverydayVo);//保存对象
         }
         return recordEverydayVos;
