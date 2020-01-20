@@ -665,7 +665,8 @@ public class KaoQinServiceImpl implements KaoQinService {
                                     add(BigDecimal.valueOf(1)));
                         }
                     }else if (recordEverydayVo.getPmClockOutResult().contains("正常")||
-                            recordEverydayVo.getPmClockOutResult().contains("补卡")) {
+                            recordEverydayVo.getPmClockOutResult().contains("补卡")||
+                            recordEverydayVo.getPmClockOutResult().contains("出差")) {
                         if(pmClockOut.contains(":")) {
                             Date dateClockOut = this.convertTime(pmClockOut);
                             //正常和补卡打卡情况下,如果下班打卡时间超过了晚餐补助的起始时间,则统计一天晚餐补助
@@ -722,6 +723,12 @@ public class KaoQinServiceImpl implements KaoQinService {
             calendar.clear();
             String hour = time.split(":")[0];
             String minute = time.split(":")[1];
+            if(hour.contains("次日 ")){
+                calendar.set(Calendar.YEAR,1970);
+                calendar.set(Calendar.MONTH,0);
+                calendar.set(Calendar.DAY_OF_MONTH,2);
+                hour = hour.replace("次日 ","");
+            }
             calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
             calendar.set(Calendar.MINUTE, Integer.parseInt(minute));
             return calendar.getTime();
@@ -729,6 +736,7 @@ public class KaoQinServiceImpl implements KaoQinService {
             return null;
         }
     }
+
     /**
      * 将19-11-01 星期一格式的字符串转换成日期对象
      * @param date
