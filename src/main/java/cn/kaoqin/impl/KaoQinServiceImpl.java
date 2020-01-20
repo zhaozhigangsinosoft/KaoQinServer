@@ -772,6 +772,7 @@ public class KaoQinServiceImpl implements KaoQinService {
             }else {
                 result = true;
             }
+            return result;
         }
         //如果不是特殊工作日，则按星期几判断,7是周六,1是周日
         if(week == 1 || week == 7) {//周六日为非工作日
