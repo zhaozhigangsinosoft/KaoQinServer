@@ -701,8 +701,18 @@ public class KaoQinServiceImpl implements KaoQinService {
                             diffHour = 0;
                         }
                         //如果加班当天为1号月结,则将加班时间要按1:1累计调休,所以这里先除以加班累计调休比例
-                        if(nowDate.getDay()==1) {
-                            diffHour = diffHour/this.overtimeRate;
+                        Calendar tempNowDate = Calendar.getInstance();
+                        tempNowDate.setTime(nowDate);
+                        if(tempNowDate.get(Calendar.DAY_OF_MONTH)==1) {
+                            if(tempNowDate.get(Calendar.MONTH)+1 == 1||
+                                    tempNowDate.get(Calendar.MONTH)+1 == 5||
+                                    tempNowDate.get(Calendar.MONTH)+1 == 10) {
+                                //如果是元旦,劳动节,国庆节,则不需要累计调休时间,按三倍工资走
+                                diffHour = 0;
+                            }else {
+                                //其它月份的月结按1:1累计调休
+                                diffHour = diffHour/this.overtimeRate;
+                            }
                         }
                         //保存非工作日的加班时长
                         kaoQinGetOutVo.setOvertimeThisMonth(kaoQinGetOutVo.getOvertimeThisMonth().
