@@ -26,23 +26,21 @@ import cn.util.RegTest;
 @RequestMapping("/kaoqin")
 public class KaoQinController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     //配置文件中获取考勤文件读取路径
     @Value("${params.kaoqin.filepath}")
     private String filePath;
-    
+
     @Autowired
     private KaoQinService kaoQinService;
-    
-    @Autowired
-    private HttpServletResponse response;
-    
+
+
     /**
      * 转换考勤文件请求入口
      * @return
      */
     @RequestMapping(value = "/convert/{saveType}")
-    public String convertExcel(@PathVariable("saveType") String saveType) {
+    public String convertExcel(@PathVariable("saveType") String saveType , HttpServletResponse response) {
         //此处可以选择save和download两种方式，save为直接将文件生成到本地路径下，download为通过浏览器下载
         if(!RegTest.match(saveType, "^(save|download)$")) {
             return "Error export method!Please enter \"save\""
@@ -60,13 +58,13 @@ public class KaoQinController {
             }else {
                 return "No records!";
             }
-            
+
         } catch (Exception e2) {
             //如果转换发生异常则返回失败
             logger.error(e2.getMessage(),e2);
             return "Failed";
         }
         return "Success";
-        
+
     }
 }
