@@ -23,11 +23,10 @@ public class YdController {
     @RequestMapping(value = "/convert")
     public String convertExcel() {
         FileInputStream input = null;
+        String basePath = "D:\\SVN_Folder\\天津SVN\\Development(开发库)\\英大再保\\储备项目\\统计报表项目文件\\";
         try {
 
-            File file = new File("D:\\SVN_Folder\\天津SVN\\Development(开发库)\\英大再保\\" +
-                    "储备项目\\统计报表项目文件\\" +
-                    "FI-YDPIC-REQ-20200402-003再保统计报表开发数据结构设计文档.xlsx");
+            File file = new File(basePath+"FI-YDPIC-REQ-20200402-003再保统计报表开发数据结构设计文档.xlsx");
             logger.info("正在处理文件：" + file.getName());
             XSSFWorkbook wb = null;
             input = new FileInputStream(file);
@@ -84,8 +83,7 @@ public class YdController {
                 }
             }
 
-            File outputFile = new File("D:\\SVN_Folder\\天津SVN\\Development(开发库)\\英大再保\\" +
-                    "储备项目\\统计报表项目文件\\source\\数据库初始化脚本.sql");
+            File outputFile = new File(basePath+"source\\数据库初始化脚本.sql");
             FileWriter fileWriter = null;
             BufferedWriter bw = null;
             try {
