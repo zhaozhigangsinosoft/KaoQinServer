@@ -39,7 +39,7 @@ public class YdController {
             // 解析公式结果
             FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
             int startPage = 4;
-            int count = 49;
+            int count = 50;
             for(int i = startPage ; i<= startPage+count-1 ; i++){
                 XSSFSheet xssfSheet = wb.getSheetAt(i);
                 for (int j = 0; j <= xssfSheet.getLastRowNum(); j++) {
